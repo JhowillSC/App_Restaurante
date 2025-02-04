@@ -14,4 +14,6 @@ public class Producto {
     
     public String pruebaRama;
     
+    public String probandoEscala;
+    
 }
