@@ -14,4 +14,6 @@ public class Prueba {
     
     public int a=2;
     
+    private String pruebaUnion;
+    
 }
