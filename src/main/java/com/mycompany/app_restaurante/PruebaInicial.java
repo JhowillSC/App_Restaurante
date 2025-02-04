@@ -16,5 +16,5 @@ public class PruebaInicial {
    
    public String PruebaFinal;
     
-    
+   public String dos; 
 }
