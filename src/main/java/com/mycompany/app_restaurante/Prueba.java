@@ -12,4 +12,6 @@ public class Prueba {
     
     private String nombre;
     
+    public int a=2;
+    
 }
