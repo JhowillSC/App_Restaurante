@@ -11,5 +11,5 @@ package com.mycompany.app_restaurante;
 public class PruebaInicial {
     
    public String PruebaReal;
-    
+    public String davidbroca;
 }
