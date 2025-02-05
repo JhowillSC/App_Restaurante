@@ -87,6 +87,11 @@ public class FrameRegistrarPlatos extends javax.swing.JFrame {
             }
         });
 
+        btnModificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Actualizar .png"))); // NOI18N
+
+        btnLimpiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/limpiar.png"))); // NOI18N
+
+        btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Registar.png"))); // NOI18N
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGuardarActionPerformed(evt);
