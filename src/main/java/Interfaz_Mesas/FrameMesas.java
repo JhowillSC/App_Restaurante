@@ -142,10 +142,10 @@ private void cargarEstados() {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(153, 153, 153));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnMesa1.setBackground(new java.awt.Color(0, 102, 0));
         btnMesa1.setFont(new java.awt.Font("Wide Latin", 1, 22)); // NOI18N
-        btnMesa1.setForeground(new java.awt.Color(0, 0, 0));
         btnMesa1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/mesa.png"))); // NOI18N
         btnMesa1.setText("Mesa 1");
         btnMesa1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -155,10 +155,10 @@ private void cargarEstados() {
                 btnMesa1ActionPerformed(evt);
             }
         });
+        jPanel1.add(btnMesa1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 214, 288));
 
         btnMesa2.setBackground(new java.awt.Color(0, 102, 0));
         btnMesa2.setFont(new java.awt.Font("Wide Latin", 1, 22)); // NOI18N
-        btnMesa2.setForeground(new java.awt.Color(0, 0, 0));
         btnMesa2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/mesa.png"))); // NOI18N
         btnMesa2.setText("Mesa 2");
         btnMesa2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -168,10 +168,10 @@ private void cargarEstados() {
                 btnMesa2ActionPerformed(evt);
             }
         });
+        jPanel1.add(btnMesa2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 0, 214, 288));
 
         btnMesa3.setBackground(new java.awt.Color(0, 102, 0));
         btnMesa3.setFont(new java.awt.Font("Wide Latin", 1, 22)); // NOI18N
-        btnMesa3.setForeground(new java.awt.Color(0, 0, 0));
         btnMesa3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/mesa.png"))); // NOI18N
         btnMesa3.setText("Mesa 3");
         btnMesa3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -181,10 +181,10 @@ private void cargarEstados() {
                 btnMesa3ActionPerformed(evt);
             }
         });
+        jPanel1.add(btnMesa3, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 0, 214, 288));
 
         btnMesa4.setBackground(new java.awt.Color(0, 102, 0));
         btnMesa4.setFont(new java.awt.Font("Wide Latin", 1, 22)); // NOI18N
-        btnMesa4.setForeground(new java.awt.Color(0, 0, 0));
         btnMesa4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/mesa.png"))); // NOI18N
         btnMesa4.setText("Mesa 4");
         btnMesa4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -194,10 +194,10 @@ private void cargarEstados() {
                 btnMesa4ActionPerformed(evt);
             }
         });
+        jPanel1.add(btnMesa4, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 0, 200, 288));
 
         btnMesa5.setBackground(new java.awt.Color(0, 102, 0));
         btnMesa5.setFont(new java.awt.Font("Wide Latin", 1, 22)); // NOI18N
-        btnMesa5.setForeground(new java.awt.Color(0, 0, 0));
         btnMesa5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/mesa.png"))); // NOI18N
         btnMesa5.setText("Mesa 5");
         btnMesa5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -207,10 +207,10 @@ private void cargarEstados() {
                 btnMesa5ActionPerformed(evt);
             }
         });
+        jPanel1.add(btnMesa5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 214, 280));
 
         btnMesa6.setBackground(new java.awt.Color(0, 102, 0));
         btnMesa6.setFont(new java.awt.Font("Wide Latin", 1, 22)); // NOI18N
-        btnMesa6.setForeground(new java.awt.Color(0, 0, 0));
         btnMesa6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/mesa.png"))); // NOI18N
         btnMesa6.setText("Mesa 6");
         btnMesa6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -220,10 +220,10 @@ private void cargarEstados() {
                 btnMesa6ActionPerformed(evt);
             }
         });
+        jPanel1.add(btnMesa6, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 300, 214, 280));
 
         btnMesa7.setBackground(new java.awt.Color(0, 102, 0));
         btnMesa7.setFont(new java.awt.Font("Wide Latin", 1, 22)); // NOI18N
-        btnMesa7.setForeground(new java.awt.Color(0, 0, 0));
         btnMesa7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/mesa.png"))); // NOI18N
         btnMesa7.setText("Mesa 7");
         btnMesa7.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -233,10 +233,10 @@ private void cargarEstados() {
                 btnMesa7ActionPerformed(evt);
             }
         });
+        jPanel1.add(btnMesa7, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 300, 214, 280));
 
         btnMesa8.setBackground(new java.awt.Color(0, 102, 0));
         btnMesa8.setFont(new java.awt.Font("Wide Latin", 1, 22)); // NOI18N
-        btnMesa8.setForeground(new java.awt.Color(0, 0, 0));
         btnMesa8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/mesa.png"))); // NOI18N
         btnMesa8.setText("Mesa 8");
         btnMesa8.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -246,43 +246,7 @@ private void cargarEstados() {
                 btnMesa8ActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(btnMesa5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
-                    .addComponent(btnMesa1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnMesa2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnMesa6, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnMesa3, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
-                    .addComponent(btnMesa7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnMesa4, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                    .addComponent(btnMesa8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(btnMesa4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnMesa3, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
-                    .addComponent(btnMesa1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnMesa2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnMesa5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnMesa6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnMesa8, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
-                    .addComponent(btnMesa7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-        );
+        jPanel1.add(btnMesa8, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 300, 200, 280));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 860, 580));
 
