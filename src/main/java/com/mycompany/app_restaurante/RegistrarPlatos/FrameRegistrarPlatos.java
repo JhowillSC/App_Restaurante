@@ -14,7 +14,7 @@ public class FrameRegistrarPlatos extends javax.swing.JFrame {
      * Creates new form FrameRegistrarPlatos
      */
     public FrameRegistrarPlatos() {
-        this.setSize(856, 577);
+        this.setSize(860, 605);
         this.setLocationRelativeTo(null);
         this.setTitle("Registrar");
         this.setResizable(false);

@@ -22,7 +22,7 @@ public class FrameMesas extends javax.swing.JFrame {
      * Creates new form FrameMesas
      */
     public FrameMesas() {
-        this.setSize(856, 577);
+        this.setSize(860, 605);
         this.setLocationRelativeTo(null);
         this.setTitle("Interfaz_Mesas");
         this.setResizable(false);
@@ -142,6 +142,8 @@ private void cargarEstados() {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(153, 153, 153));
+        jPanel1.setMinimumSize(new java.awt.Dimension(860, 605));
+        jPanel1.setPreferredSize(new java.awt.Dimension(860, 605));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnMesa1.setBackground(new java.awt.Color(0, 102, 0));
@@ -207,7 +209,7 @@ private void cargarEstados() {
                 btnMesa5ActionPerformed(evt);
             }
         });
-        jPanel1.add(btnMesa5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 214, 280));
+        jPanel1.add(btnMesa5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 214, 300));
 
         btnMesa6.setBackground(new java.awt.Color(0, 102, 0));
         btnMesa6.setFont(new java.awt.Font("Wide Latin", 1, 22)); // NOI18N
@@ -220,7 +222,7 @@ private void cargarEstados() {
                 btnMesa6ActionPerformed(evt);
             }
         });
-        jPanel1.add(btnMesa6, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 300, 214, 280));
+        jPanel1.add(btnMesa6, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 300, 214, 300));
 
         btnMesa7.setBackground(new java.awt.Color(0, 102, 0));
         btnMesa7.setFont(new java.awt.Font("Wide Latin", 1, 22)); // NOI18N
@@ -233,7 +235,7 @@ private void cargarEstados() {
                 btnMesa7ActionPerformed(evt);
             }
         });
-        jPanel1.add(btnMesa7, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 300, 214, 280));
+        jPanel1.add(btnMesa7, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 300, 214, 300));
 
         btnMesa8.setBackground(new java.awt.Color(0, 102, 0));
         btnMesa8.setFont(new java.awt.Font("Wide Latin", 1, 22)); // NOI18N
@@ -246,9 +248,9 @@ private void cargarEstados() {
                 btnMesa8ActionPerformed(evt);
             }
         });
-        jPanel1.add(btnMesa8, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 300, 200, 280));
+        jPanel1.add(btnMesa8, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 300, 200, 300));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 860, 580));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 860, 605));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

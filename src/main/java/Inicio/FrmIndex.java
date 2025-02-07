@@ -23,7 +23,7 @@ public class FrmIndex extends javax.swing.JFrame {
         
         initComponents();
         getContentPane().setBackground(Color.GRAY);
-        this.setSize(856, 577);
+        this.setSize(860, 605);
         this.setLocationRelativeTo(null);
         this.setTitle("Interfaz_Mesas");
         this.setResizable(false);
@@ -52,7 +52,7 @@ public class FrmIndex extends javax.swing.JFrame {
         jButton5 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jButton6 = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -101,8 +101,12 @@ public class FrmIndex extends javax.swing.JFrame {
         });
         getContentPane().add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 200, 215, 114));
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/fondoR.jpg"))); // NOI18N
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 856, 580));
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/fondoR.jpg"))); // NOI18N
+        jLabel4.setText("jLabel4");
+        jLabel4.setMaximumSize(new java.awt.Dimension(860, 605));
+        jLabel4.setMinimumSize(new java.awt.Dimension(860, 605));
+        jLabel4.setPreferredSize(new java.awt.Dimension(860, 605));
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 860, 605));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -164,6 +168,6 @@ public class FrmIndex extends javax.swing.JFrame {
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     // End of variables declaration//GEN-END:variables
 }
