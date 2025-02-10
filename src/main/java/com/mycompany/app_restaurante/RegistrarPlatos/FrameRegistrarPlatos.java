@@ -4,6 +4,15 @@
  */
 package com.mycompany.app_restaurante.RegistrarPlatos;
 
+import com.mycompany.app_restaurante.ConexionMySQL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author jhowi
@@ -14,11 +23,24 @@ public class FrameRegistrarPlatos extends javax.swing.JFrame {
      * Creates new form FrameRegistrarPlatos
      */
     public FrameRegistrarPlatos() {
+        initComponents();
         this.setSize(860, 605);
         this.setLocationRelativeTo(null);
         this.setTitle("Registrar");
         this.setResizable(false);
-        initComponents(); initComponents();
+         comboCategoria.addItem("Pollos a la brasa");
+        comboCategoria.addItem("Combos brasa");
+        comboCategoria.addItem("Arroz chaufa");
+        comboCategoria.addItem("Saltados Carta");
+        comboCategoria.addItem("Saltados Junior");
+        comboCategoria.addItem("Tallarines Carta");
+        comboCategoria.addItem("Tallarines Junior");
+        comboCategoria.addItem("Personales Carta");
+        comboCategoria.addItem("Personales Junior");
+        comboCategoria.addItem("Bebidas");
+        comboCategoria.addItem("Licores");
+        ListaAccion();
+        
     }
 
     /**
@@ -42,14 +64,15 @@ public class FrameRegistrarPlatos extends javax.swing.JFrame {
         btnGuardar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        comboCategoria = new javax.swing.JComboBox<>();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tablaLista = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(153, 153, 153));
+        jPanel1.setToolTipText("");
 
         jPanel2.setBackground(new java.awt.Color(0, 0, 0));
 
@@ -90,8 +113,18 @@ public class FrameRegistrarPlatos extends javax.swing.JFrame {
         });
 
         btnModificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Actualizar .png"))); // NOI18N
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
 
         btnLimpiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/limpiar.png"))); // NOI18N
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
+            }
+        });
 
         btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Registar.png"))); // NOI18N
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -110,7 +143,12 @@ public class FrameRegistrarPlatos extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel4.setText("Categoria :");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Escoger Categoria" }));
+        comboCategoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboCategoriaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -144,7 +182,7 @@ public class FrameRegistrarPlatos extends javax.swing.JFrame {
                         .addGap(15, 15, 15)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(comboCategoria, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -162,7 +200,7 @@ public class FrameRegistrarPlatos extends javax.swing.JFrame {
                 .addGap(34, 34, 34)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(comboCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(63, 63, 63)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -176,7 +214,7 @@ public class FrameRegistrarPlatos extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(204, 204, 204));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tablaLista.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -223,7 +261,7 @@ public class FrameRegistrarPlatos extends javax.swing.JFrame {
                 "Title 1", "Title", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tablaLista);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -275,13 +313,227 @@ public class FrameRegistrarPlatos extends javax.swing.JFrame {
     }//GEN-LAST:event_txtPrecioActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        // TODO add your handling code here:
+  String nombre = txtNombre.getText();  // Obtener el nombre del JTextField
+    String precio = txtPrecio.getText();  // Obtener el precio del JTextField
+    String categoria = comboCategoria.getSelectedItem().toString();  // Obtener la categoría del JComboBox
+
+    // Validar que todos los campos estén llenos
+    if (nombre.isEmpty() || precio.isEmpty() || categoria.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Por favor, completa todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    // Validar que el precio sea un número válido
+    double precioDouble;
+    try {
+        precioDouble = Double.parseDouble(precio); // Convierte el precio a double
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "El precio debe ser un número válido", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    // Consulta SQL para insertar los datos
+    String sql = "INSERT INTO platos (nombre, precio, categoria) VALUES (?, ?, ?)";
+
+    // Realizar conexión e insertar datos
+    try (Connection conn = ConexionMySQL.conectar();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+        // Asignar valores a los parámetros de la consulta
+        pstmt.setString(1, nombre);
+        pstmt.setDouble(2, precioDouble); // Usar setDouble para el precio
+        pstmt.setString(3, categoria);
+
+        // Ejecutar la consulta
+        pstmt.executeUpdate();
+        JOptionPane.showMessageDialog(this, "¡Plato registrado exitosamente!", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+
+        // Limpiar los campos después de registrar
+        txtNombre.setText("");
+        txtPrecio.setText("");
+        comboCategoria.setSelectedIndex(0);
+
+    } catch (SQLException ex) {
+        // Mostrar mensaje de error en caso de excepción
+        JOptionPane.showMessageDialog(this, "Error al registrar el plato: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
+    ListaAccion();        // TODO add your handling code here:
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        // TODO add your handling code here:
+ int filaSeleccionada = tablaLista.getSelectedRow(); // Seleccionar fila en JTable
+
+    if (filaSeleccionada >= 0) {
+        // Obtener el ID del plato a eliminar
+        String id = tablaLista.getValueAt(filaSeleccionada, 0).toString();
+
+        // Confirmar si desea eliminar el plato
+        int opcion = JOptionPane.showConfirmDialog(
+            this, 
+            "¿Estás seguro de que deseas eliminar este plato?", 
+            "Confirmar Eliminación", 
+            JOptionPane.YES_NO_OPTION
+        );
+
+        if (opcion == JOptionPane.YES_OPTION) {
+            // Eliminar el plato de la base de datos
+            try (Connection conn = ConexionMySQL.conectar()) {
+                String sql = "DELETE FROM platos WHERE id = ?";
+                try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                    pstmt.setString(1, id); // ID del plato a eliminar
+
+                    // Ejecutar la consulta
+                    int filasAfectadas = pstmt.executeUpdate();
+
+                    if (filasAfectadas > 0) {
+                        JOptionPane.showMessageDialog(
+                            this, 
+                            "¡Plato eliminado exitosamente!", 
+                            "Éxito", 
+                            JOptionPane.INFORMATION_MESSAGE
+                        );
+
+                        // Recargar los datos de la tabla
+                        ListaAccion();
+                    } else {
+                        JOptionPane.showMessageDialog(
+                            this, 
+                            "No se encontró el plato a eliminar.", 
+                            "Error", 
+                            JOptionPane.ERROR_MESSAGE
+                        );
+                    }
+                }
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(
+                    this, 
+                    "Error al eliminar el plato: " + ex.getMessage(), 
+                    "Error", 
+                    JOptionPane.ERROR_MESSAGE
+                );
+            }
+        }
+    } else {
+        JOptionPane.showMessageDialog(
+            this, 
+            "Por favor selecciona un plato para eliminar.", 
+            "Advertencia", 
+            JOptionPane.WARNING_MESSAGE
+        );
+    }        // TODO add your handling code here:
     }//GEN-LAST:event_btnEliminarActionPerformed
 
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+ txtNombre.setText("");
+        txtPrecio.setText("");
+        comboCategoria.setSelectedIndex(0);         // TODO add your handling code here:
+    }//GEN-LAST:event_btnLimpiarActionPerformed
+
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+ int filaSeleccionada = tablaLista.getSelectedRow(); // Seleccionar fila en JTable
+
+    if (filaSeleccionada >= 0) {
+        // Obtener datos actuales de la fila seleccionada
+        String id = tablaLista.getValueAt(filaSeleccionada, 0).toString();
+        String nombreActual = tablaLista.getValueAt(filaSeleccionada, 1).toString();
+        String precioActual = tablaLista.getValueAt(filaSeleccionada, 2).toString();
+        String categoriaActual = tablaLista.getValueAt(filaSeleccionada, 3).toString();
+
+        // Mostrar los valores actuales en los campos para edición
+        txtNombre.setText(nombreActual);
+        txtPrecio.setText(precioActual);
+        comboCategoria.setSelectedItem(categoriaActual);
+
+        // Confirmar si el usuario desea guardar los cambios
+        int opcion = JOptionPane.showConfirmDialog(
+                this,
+                "¿Deseas guardar los cambios en este plato?",
+                "Confirmar Edición",
+                JOptionPane.YES_NO_OPTION);
+
+        if (opcion == JOptionPane.YES_OPTION) {
+            // Obtener los nuevos valores de los campos
+            String nuevoNombre = txtNombre.getText();
+            String nuevoPrecio = txtPrecio.getText();
+            String nuevaCategoria = comboCategoria.getSelectedItem().toString();
+
+            // Validar que los campos no estén vacíos
+            if (nuevoNombre.isEmpty() || nuevoPrecio.isEmpty() || nuevaCategoria.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Por favor llena todos los campos.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            // Actualizar los datos en la base de datos
+            try (Connection conn = ConexionMySQL.conectar()) {
+                String sql = "UPDATE platos SET nombre = ?, precio = ?, categoria = ? WHERE id = ?";
+                try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                    pstmt.setString(1, nuevoNombre);
+                    pstmt.setDouble(2, Double.parseDouble(nuevoPrecio)); // Convertir precio a double
+                    pstmt.setString(3, nuevaCategoria);
+                    pstmt.setString(4, id); // ID del plato a actualizar
+
+                    // Ejecutar la consulta
+                    pstmt.executeUpdate();
+                    JOptionPane.showMessageDialog(this, "¡Plato actualizado correctamente!", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+
+                    // Recargar los datos de la tabla
+                    ListaAccion();
+                }
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(this, "Error al actualizar el plato: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    } else {
+        JOptionPane.showMessageDialog(this, "Por favor selecciona un plato para editar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+    }        // TODO add your handling code here:
+    }//GEN-LAST:event_btnModificarActionPerformed
+
+    private void comboCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboCategoriaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboCategoriaActionPerformed
+public static ResultSet ListarTabla(String consulta){
+        Connection conn=com.mycompany.app_restaurante.ConexionMySQL.conectar();
+        Statement sql;     
+        
+        ResultSet datos=null;
+        
+        try {
+            sql=conn.createStatement();
+            datos=sql.executeQuery(consulta);
+            
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return datos;
+    }
+    
+    public void ListaAccion(){
+        DefaultTableModel md = new DefaultTableModel();
+        ResultSet rs = ListarTabla("select * from platos");
+        md.setColumnIdentifiers(new Object[]{"ID", "Nombre de Plato", "Precio", "Categoria"});
+
+        try {
+        while (rs.next()) {
+        // Agregar cada fila al modelo
+        md.addRow(new Object[]{
+            rs.getString("id"),
+            rs.getString("nombre"),
+            rs.getString("precio"),
+            rs.getString("categoria")
+        });
+    }
+    // Configurar el modelo en la tabla después de llenar todas las filas
+        tablaLista.setModel(md);
+    } catch (Exception e) {
+    System.out.println(e);
+    }
+
+        
+        
+    }
+    
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -322,7 +574,7 @@ public class FrameRegistrarPlatos extends javax.swing.JFrame {
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnModificar;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> comboCategoria;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -331,7 +583,7 @@ public class FrameRegistrarPlatos extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tablaLista;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtPrecio;
     // End of variables declaration//GEN-END:variables
