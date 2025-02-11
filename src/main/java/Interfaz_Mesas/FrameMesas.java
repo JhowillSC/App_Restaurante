@@ -15,6 +15,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JFrame;
+import java.awt.Image;
+import java.awt.Toolkit;
 
 /**
  *
@@ -36,6 +38,15 @@ public class FrameMesas extends javax.swing.JFrame {
         cargarEstados();
       
     }
+    
+     //////////////////////// LOGICA DEL LOGO DEL PROGRAMA ////////////////////////////////////////////////////////
+    
+    public Image getIconImage() {
+        Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("imagenes/logo.jpg"));
+        return retValue;
+    }
+    
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
    
 
     
@@ -150,6 +161,7 @@ private void cargarEstados() {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setIconImage(getIconImage());
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(153, 153, 153));
