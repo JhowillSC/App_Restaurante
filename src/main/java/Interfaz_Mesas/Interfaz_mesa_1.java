@@ -24,6 +24,10 @@ import java.awt.Toolkit;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import java.sql.*;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import javax.swing.SpinnerNumberModel;
 
 
 public class Interfaz_mesa_1 extends javax.swing.JFrame {
@@ -47,6 +51,8 @@ public class Interfaz_mesa_1 extends javax.swing.JFrame {
         // Agregar eventos para actualizar platos y precio
         cboxCategorias.addActionListener(e -> actualizarPlatos());
         cboxPlatos.addActionListener(e -> actualizarPrecio());
+        //Limitar el negativo al spinner cantidad
+        spCantidad.setModel(new SpinnerNumberModel(0, 0, Integer.MAX_VALUE, 1));
     }
     
     //////////////////////// LOGICA DEL LOGO DEL PROGRAMA ////////////////////////////////////////////////////////
@@ -335,7 +341,27 @@ public class Interfaz_mesa_1 extends javax.swing.JFrame {
      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     private void btnTicketCliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTicketCliActionPerformed
-     String ticketTexto = generarTicket();
+        String url = "jdbc:mysql://localhost:3306/mi_base_de_datos";
+        String user = "root";
+        String password = "root";
+        String sql = "INSERT INTO ventas (numMesa, fecha, hora, total) VALUES (?, ?, ?, ?)";
+
+        try (Connection conn = DriverManager.getConnection(url, user, password);
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, numMesa);
+            stmt.setDate(2, java.sql.Date.valueOf(LocalDate.now()));
+            stmt.setTime(3, java.sql.Time.valueOf(LocalTime.now()));
+            stmt.setDouble(4, total);
+
+            stmt.executeUpdate();
+            System.out.println("Venta registrada exitosamente.");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        String ticketTexto = generarTicket();
 
     try {
         // Código ESC/POS para corte total de papel
@@ -384,7 +410,10 @@ public class Interfaz_mesa_1 extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "Impresión realizada con éxito.", "Información", JOptionPane.INFORMATION_MESSAGE);
     } catch (Exception e) {
         JOptionPane.showMessageDialog(null, "Error al imprimir: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-    }  
+    }
+    
+    
+  
     }//GEN-LAST:event_btnTicketCliActionPerformed
     
     ////////////////////////////////////   METODO GENERAR TICKET-COCINA  ///////////////////////////////////////////////////////
