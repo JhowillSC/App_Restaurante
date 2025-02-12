@@ -18,27 +18,38 @@ import javax.swing.JFrame;
 import java.awt.Image;
 import java.awt.Toolkit;
 
+
 /**
  *
  * @author jhowi
  */
 public class FrameMesas extends javax.swing.JFrame {
 
-    
+    private FrmIndex frmIndex;
    // private Interfaz_mesa_1 Inter1;
     
     
     public FrameMesas() {
-      
-        this.setSize(860, 605);
-        this.setLocationRelativeTo(null);
-        this.setTitle("Interfaz_Mesas");
-        this.setResizable(false);
+        
+       
         initComponents();
-        cargarEstados();
+        
+       
+        
+        
       
     }
+    public FrameMesas(FrmIndex frmIndex) {
+    this.frmIndex = frmIndex; // Guarda la referencia
+    initComponents(); // Llama a los componentes de la ventana
     
+         this.setSize(860, 605);
+        this.setTitle("Interfaz_Mesas");
+        this.setResizable(false);
+         setLocationRelativeTo(null); // Centrar la ventana en la pantalla
+         this.setVisible(true); // Asegurar que se muestre correctamente
+         cargarEstados();
+    }
      //////////////////////// LOGICA DEL LOGO DEL PROGRAMA ////////////////////////////////////////////////////////
     
     public Image getIconImage() {

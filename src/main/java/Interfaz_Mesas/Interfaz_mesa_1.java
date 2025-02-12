@@ -46,6 +46,15 @@ public class Interfaz_mesa_1 extends javax.swing.JFrame {
         this.setResizable(false);
         this.setTitle("MESA 1");
         initComponents();
+        
+         //////////////////////// DESCUENTO CON IMAGEN CLICKEABLE////////////////////////////////////////////////////////
+        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+        @Override
+        public void mouseClicked(java.awt.event.MouseEvent evt) {
+        aplicarDescuento();
+        }
+        });
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // Llenar ComboBox al iniciar la interfaz
         llenarCategorias();
         // Agregar eventos para actualizar platos y precio
@@ -63,7 +72,31 @@ public class Interfaz_mesa_1 extends javax.swing.JFrame {
     }
     
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-     
+    private void aplicarDescuento() {
+    try {
+        // Mostrar un cuadro de diálogo para ingresar el descuento
+        String input = JOptionPane.showInputDialog(null, "Ingrese el porcentaje de descuento:", "Aplicar Descuento", JOptionPane.QUESTION_MESSAGE);
+
+        // Verificar si el usuario ingresó un valor válido
+        if (input != null && !input.trim().isEmpty()) {
+            double descuento = Double.parseDouble(input); // Convertir a número
+
+            // Obtener el precio actual
+            double precioActual = Double.parseDouble(txtPrecio.getText());
+
+            // Calcular el nuevo precio con el descuento aplicado
+            double nuevoPrecio = precioActual - (precioActual * (descuento / 100));
+
+            // Establecer el nuevo precio en el campo txtPrecio
+            txtPrecio.setText(String.format("%.2f", nuevoPrecio));
+        }
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(null, "Ingrese un valor numérico válido.", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+}
+    
+    
+    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -80,14 +113,16 @@ public class Interfaz_mesa_1 extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        btnAgregar = new javax.swing.JButton();
-        btnDescuento = new javax.swing.JButton();
         btnTicketCli = new javax.swing.JButton();
         btnTicketCocina = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtA = new javax.swing.JTextArea();
         spCantidad = new javax.swing.JSpinner();
         jLabel11 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        btnAgregar = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -110,7 +145,6 @@ public class Interfaz_mesa_1 extends javax.swing.JFrame {
         });
         getContentPane().add(cboxCategorias, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 120, 230, 40));
 
-        cboxPlatos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "BEBIDAS", "HAMBURGESAS ", "BURRITOS", " " }));
         cboxPlatos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cboxPlatosActionPerformed(evt);
@@ -154,22 +188,6 @@ public class Interfaz_mesa_1 extends javax.swing.JFrame {
         jLabel9.setText("CATEGORIAS:");
         getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 120, 250, 40));
 
-        btnAgregar.setText("AGREGAR");
-        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 450, 190, 50));
-
-        btnDescuento.setText("DESCUENTO");
-        btnDescuento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDescuentoActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnDescuento, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 530, 190, 50));
-
         btnTicketCli.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/factura-removebg-preview.png"))); // NOI18N
         btnTicketCli.setText("TICKET - CLIENTE");
         btnTicketCli.addActionListener(new java.awt.event.ActionListener() {
@@ -177,7 +195,7 @@ public class Interfaz_mesa_1 extends javax.swing.JFrame {
                 btnTicketCliActionPerformed(evt);
             }
         });
-        getContentPane().add(btnTicketCli, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 490, 190, 50));
+        getContentPane().add(btnTicketCli, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 450, 190, 60));
 
         btnTicketCocina.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/ticket1-removebg-preview.png"))); // NOI18N
         btnTicketCocina.setText("TICKET-COCINA ");
@@ -186,7 +204,7 @@ public class Interfaz_mesa_1 extends javax.swing.JFrame {
                 btnTicketCocinaActionPerformed(evt);
             }
         });
-        getContentPane().add(btnTicketCocina, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 490, 190, 50));
+        getContentPane().add(btnTicketCocina, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 530, 190, 60));
 
         txtA.setColumns(20);
         txtA.setRows(5);
@@ -199,6 +217,27 @@ public class Interfaz_mesa_1 extends javax.swing.JFrame {
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/1-removebg-preview.png"))); // NOI18N
         getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 30, 40, 60));
+
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/logoInterface.png"))); // NOI18N
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 10, 130, 110));
+
+        btnAgregar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/agregar.png"))); // NOI18N
+        btnAgregar.setText("      AGREGAR");
+        btnAgregar.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnAgregar.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 480, 230, 70));
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/descuento-removebg-preview.png"))); // NOI18N
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 470, 70, 90));
+
+        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/bote-de-basura.png"))); // NOI18N
+        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 110, 60, 50));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/fondoMesa.jpg"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -425,7 +464,7 @@ public class Interfaz_mesa_1 extends javax.swing.JFrame {
         String reset = "\u001B!\u0000";
     
         String ticket = 
-        dobleTamano + "      " + numeroMesa+ reset + "\n\n" +  // Agrandar nombre hay 18 bits en cada espacio 
+        dobleTamano + "        " + numeroMesa+ reset + "\n\n" +  // Agrandar nombre hay 18 bits en cada espacio 
                           sdf.format(new Date()) + "\n" +
             "================================================\n" +
             "CANT.    MENU             DETALLES\n" +
@@ -501,64 +540,37 @@ public class Interfaz_mesa_1 extends javax.swing.JFrame {
         String detalles = txtDetalles.getText().trim(); // Nuevo campo para detalles
 
         if (plato.isEmpty()) {
-        JOptionPane.showMessageDialog(null, "Complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
-        return;
+            JOptionPane.showMessageDialog(null, "Complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
         }
 
         try {
-        if (!txtPrecio.getText().isEmpty()) {
-            precio = Double.parseDouble(txtPrecio.getText()); 
-        }
-        double importe = precio * cantidad;
+            if (!txtPrecio.getText().isEmpty()) {
+                precio = Double.parseDouble(txtPrecio.getText());
+            }
+            double importe = precio * cantidad;
 
-        // 🛒 **Ticket Cliente** (Incluye precio e importe)
-        if (!categoria.equalsIgnoreCase("Cocina")) {  
-            String pedidoCliente = String.format("%-3d %-20s %10.2f %10.2f", cantidad, plato, precio, importe);
-            pedidos.add(pedidoCliente);
-            total += importe;
-        }
+            // 🛒 **Ticket Cliente** (Incluye precio e importe)
+            if (!categoria.equalsIgnoreCase("Cocina")) {
+                String pedidoCliente = String.format("%-3d %-20s %10.2f %10.2f", cantidad, plato, precio, importe);
+                pedidos.add(pedidoCliente);
+                total += importe;
+            }
 
-        // 👨‍🍳 **Ticket Cocina** (Cantidad - Menú - Detalles)
-        String pedidoCocina = String.format("%-3d %-20s %-20s", cantidad, plato, detalles);
-        pedidosCocina.add(pedidoCocina);
+            // 👨‍🍳 **Ticket Cocina** (Cantidad - Menú - Detalles)
+            String pedidoCocina = String.format("%-3d %-20s %-20s", cantidad, plato, detalles);
+            pedidosCocina.add(pedidoCocina);
 
-        // Limpiar campos
-        cboxPlatos.setSelectedIndex(-1);
-        txtPrecio.setText("");
-        txtDetalles.setText("");  // Limpiar detalles también
+            // Limpiar campos
+            cboxPlatos.setSelectedIndex(-1);
+            txtPrecio.setText("");
+            txtDetalles.setText("");  // Limpiar detalles también
 
         } catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(null, "Valores numéricos incorrectos.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Valores numéricos incorrectos.", "Error", JOptionPane.ERROR_MESSAGE);
         }
-        
-    
+
     }//GEN-LAST:event_btnAgregarActionPerformed
-
-    private void btnDescuentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDescuentoActionPerformed
-                                         
-    try {
-        // Mostrar un cuadro de diálogo para ingresar el descuento
-        String input = JOptionPane.showInputDialog(this, "Ingrese el porcentaje de descuento:", "Aplicar Descuento", JOptionPane.QUESTION_MESSAGE);
-        
-        // Verificar si el usuario ingresó un valor válido
-        if (input != null && !input.trim().isEmpty()) {
-            double descuento = Double.parseDouble(input); // Convertir a número
-
-            // Obtener el precio actual
-            double precioActual = Double.parseDouble(txtPrecio.getText());
-
-            // Calcular el nuevo precio con el descuento aplicado
-            double nuevoPrecio = precioActual - (precioActual * (descuento / 100));
-
-            // Establecer el nuevo precio en el campo txtPrecio
-            txtPrecio.setText(String.format("%.2f", nuevoPrecio));
-        }
-    } catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(this, "Ingrese un valor numérico válido.", "Error", JOptionPane.ERROR_MESSAGE);
-    }
-
-
-    }//GEN-LAST:event_btnDescuentoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -597,7 +609,6 @@ public class Interfaz_mesa_1 extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
-    private javax.swing.JButton btnDescuento;
     private javax.swing.JButton btnTicketCli;
     private javax.swing.JButton btnTicketCocina;
     private javax.swing.JComboBox<String> cboxCategorias;
@@ -605,7 +616,10 @@ public class Interfaz_mesa_1 extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;

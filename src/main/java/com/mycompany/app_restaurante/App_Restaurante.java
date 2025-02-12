@@ -8,7 +8,8 @@ package com.mycompany.app_restaurante;
  *
  * @author mg602
  */
-import com.mycompany.app_restaurante.RegistrarPlatos.FrameRegistrarPlatos;
+
+import Inicio.FrmIndex;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -20,7 +21,7 @@ public class App_Restaurante {
         // Imprime mensaje de bienvenida
         System.out.println("Hola, App Restaurante está funcionando!");
 
-       com.mycompany.app_restaurante.RegistrarPlatos.FrameRegistrarPlatos ventana  = new FrameRegistrarPlatos();
+       Inicio.FrmIndex ventana  = new FrmIndex();
        ventana.setVisible(true);
 
         
