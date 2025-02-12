@@ -11,12 +11,14 @@ import Interfaz_Mesas.FrameMesas;
 import com.mycompany.app_restaurante.RegistrarPlatos.FrameRegistrarPlatos;
 import java.awt.Image;
 import java.awt.Toolkit;
+import ListaVentas.VentasLista;
 
 
 public class FrmIndex extends javax.swing.JFrame {
-    
+         private static FrmIndex instance;
         private FrameMesas v1; 
         private FrameRegistrarPlatos v2;
+        private VentasLista v3;
     /**
      * Creates new form FrmIndex
      */
@@ -32,7 +34,13 @@ public class FrmIndex extends javax.swing.JFrame {
         
           
     }
-
+    public static FrmIndex getInstance() {
+        if (instance == null) {
+            instance = new FrmIndex();
+        }
+        return instance;
+    }
+    
     //////////////////////// LOGICA DEL LOGO DEL PROGRAMA ////////////////////////////////////////////////////////
     
     public Image getIconImage() {
@@ -118,15 +126,22 @@ public class FrmIndex extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegistrarPlatoActionPerformed
     
     private void btnListarCajasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarCajasActionPerformed
-      
+         if (v3 == null || !v3.isDisplayable()) { 
+        v3 = new VentasLista(this); // Crea la instancia solo una vez
+        v3.setVisible(true);
+        this.setVisible(false); // Oculta FrmIndex en lugar de cerrarlo
+    } else {
+        v3.toFront(); // Trae la ventana al frente si ya está abierta
+    }
     }//GEN-LAST:event_btnListarCajasActionPerformed
 
     private void btnMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMesaActionPerformed
-          if (v1 == null || !v1.isDisplayable()) { 
-            v1 = new FrameMesas();
-            v1.setVisible(true);
+        if (v1 == null || !v1.isDisplayable()) { 
+        v1 = new FrameMesas(this); // Ahora debe funcionar correctamente
+        v1.setVisible(true);
+        this.setVisible(false); // Oculta FrmIndex en lugar de cerrarlo
         } else {
-            v1.toFront(); 
+        v1.toFront(); 
         }
     }//GEN-LAST:event_btnMesaActionPerformed
 

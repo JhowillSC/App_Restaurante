@@ -44,6 +44,14 @@ public class Interfaz_mesa_2 extends javax.swing.JFrame {
         this.setResizable(false);
         this.setTitle("MESA 2");
         initComponents();
+        //////////////////////// DESCUENTO CON IMAGEN CLICKEABLE////////////////////////////////////////////////////////
+        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+        @Override
+        public void mouseClicked(java.awt.event.MouseEvent evt) {
+        aplicarDescuento();
+        }
+        });
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // Llenar ComboBox al iniciar la interfaz
         llenarCategorias();
         // Agregar eventos para actualizar platos y precio
@@ -59,6 +67,29 @@ public class Interfaz_mesa_2 extends javax.swing.JFrame {
         Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("imagenes/logo.jpg"));
         return retValue;
     }
+    
+     private void aplicarDescuento() {
+    try {
+        // Mostrar un cuadro de diálogo para ingresar el descuento
+        String input = JOptionPane.showInputDialog(null, "Ingrese el porcentaje de descuento:", "Aplicar Descuento", JOptionPane.QUESTION_MESSAGE);
+
+        // Verificar si el usuario ingresó un valor válido
+        if (input != null && !input.trim().isEmpty()) {
+            double descuento = Double.parseDouble(input); // Convertir a número
+
+            // Obtener el precio actual
+            double precioActual = Double.parseDouble(txtPrecio.getText());
+
+            // Calcular el nuevo precio con el descuento aplicado
+            double nuevoPrecio = precioActual - (precioActual * (descuento / 100));
+
+            // Establecer el nuevo precio en el campo txtPrecio
+            txtPrecio.setText(String.format("%.2f", nuevoPrecio));
+        }
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(null, "Ingrese un valor numérico válido.", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+}
     
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     @SuppressWarnings("unchecked")
@@ -76,14 +107,16 @@ public class Interfaz_mesa_2 extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        btnAgregar = new javax.swing.JButton();
-        btnDescuento = new javax.swing.JButton();
-        btnTicketCli = new javax.swing.JButton();
-        btnTicketCocina = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         spCantidad = new javax.swing.JSpinner();
         jLabel11 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        btnTicketCli1 = new javax.swing.JButton();
+        btnTicketCocina = new javax.swing.JButton();
+        btnAgregar1 = new javax.swing.JButton();
+        jLabel12 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -150,40 +183,6 @@ public class Interfaz_mesa_2 extends javax.swing.JFrame {
         jLabel9.setText("CATEGORIAS:");
         getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 120, 250, 40));
 
-        btnAgregar.setText("AGREGAR");
-        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 450, 190, 50));
-
-        btnDescuento.setText("DESCUENTO");
-        btnDescuento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDescuentoActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnDescuento, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 520, 190, 50));
-
-        btnTicketCli.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/factura-removebg-preview.png"))); // NOI18N
-        btnTicketCli.setText("TICKET - CLIENTE");
-        btnTicketCli.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTicketCliActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnTicketCli, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 480, 190, 50));
-
-        btnTicketCocina.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/ticket1-removebg-preview.png"))); // NOI18N
-        btnTicketCocina.setText("TICKET-COCINA ");
-        btnTicketCocina.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTicketCocinaActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnTicketCocina, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 480, 190, 50));
-
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
@@ -195,6 +194,45 @@ public class Interfaz_mesa_2 extends javax.swing.JFrame {
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/2-removebg-preview.png"))); // NOI18N
         getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 30, 40, 60));
+
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/logoInterface.png"))); // NOI18N
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 10, 130, 110));
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/descuento-removebg-preview.png"))); // NOI18N
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 470, 70, 90));
+
+        btnTicketCli1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/factura-removebg-preview.png"))); // NOI18N
+        btnTicketCli1.setText("TICKET - CLIENTE");
+        btnTicketCli1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTicketCli1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnTicketCli1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 450, 190, 60));
+
+        btnTicketCocina.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/ticket1-removebg-preview.png"))); // NOI18N
+        btnTicketCocina.setText("TICKET-COCINA ");
+        btnTicketCocina.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTicketCocinaActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnTicketCocina, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 530, 190, 60));
+
+        btnAgregar1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnAgregar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/agregar.png"))); // NOI18N
+        btnAgregar1.setText("      AGREGAR");
+        btnAgregar1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnAgregar1.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        btnAgregar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregar1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnAgregar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 480, 230, 70));
+
+        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/bote-de-basura.png"))); // NOI18N
+        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 110, 60, 50));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/fondoMesa.jpg"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -332,121 +370,7 @@ public class Interfaz_mesa_2 extends javax.swing.JFrame {
         if (platoSeleccionado != null) {
             llenarPrecioPlato(platoSeleccionado);
         }
-    }
-     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    private void btnTicketCliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTicketCliActionPerformed
-         String url = "jdbc:mysql://localhost:3306/mi_base_de_datos";
-        String user = "root";
-        String password = "root";
-        String sql = "INSERT INTO ventas (numMesa, fecha, hora, total) VALUES (?, ?, ?, ?)";
-
-        try (Connection conn = DriverManager.getConnection(url, user, password);
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-
-            stmt.setInt(1, numMesa);
-            stmt.setDate(2, java.sql.Date.valueOf(LocalDate.now()));
-            stmt.setTime(3, java.sql.Time.valueOf(LocalTime.now()));
-            stmt.setDouble(4, total);
-
-            stmt.executeUpdate();
-            System.out.println("Venta registrada exitosamente.");
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        
-        String ticketTexto = generarTicket();
-
-    try {
-        // Código ESC/POS para corte total de papel
-        byte[] cortarPapel = new byte[]{ 0x1D, 0x56, 0x41, 0x10 };
-
-        // Convertir ticket a bytes
-        byte[] ticketBytes = ticketTexto.getBytes("UTF-8");
-
-        // Combinar los bytes del ticket con los del comando de corte
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        outputStream.write(ticketBytes);
-        outputStream.write(cortarPapel);
-        byte[] bytesFinales = outputStream.toByteArray();
-
-        // Especificamos el tipo de dato a imprimir (bytes, autodetectado)
-        DocFlavor flavor = DocFlavor.BYTE_ARRAY.AUTOSENSE;
-
-        // Buscar la impresora "80mm Series Printer"
-        PrintService[] printServices = PrintServiceLookup.lookupPrintServices(flavor, null);
-        PrintService selectedService = null;
-
-        for (PrintService service : printServices) {
-            if (service.getName().equalsIgnoreCase("80mm Series Printer")) {
-                selectedService = service;
-                break;
-            }
-        }
-
-        // Si no se encuentra la impresora, mostrar error
-        if (selectedService == null) {
-            JOptionPane.showMessageDialog(null, "No se encontró la impresora 80mm Series Printer.", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        // Crear documento a imprimir
-        DocPrintJob job = selectedService.createPrintJob();
-        Doc doc = new SimpleDoc(bytesFinales, flavor, null);
-
-        // Intentar imprimir
-        job.print(doc, null);
-
-        // Limpiar la lista de pedidos y total después de la impresión
-        pedidos.clear();
-        total = 0.0;
-
-        JOptionPane.showMessageDialog(null, "Impresión realizada con éxito.", "Información", JOptionPane.INFORMATION_MESSAGE);
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(null, "Error al imprimir: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-    }  
-        
-    }//GEN-LAST:event_btnTicketCliActionPerformed
-
-    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-         String plato = cboxPlatos.getSelectedItem().toString();
-        String categoria = cboxCategorias.getSelectedItem().toString(); // Categoría para diferenciar
-        double precio = 0.0;
-        int cantidad = (int) spCantidad.getValue();
-        String detalles = txtDetalles.getText().trim(); // Nuevo campo para detalles
-
-        if (plato.isEmpty()) {
-        JOptionPane.showMessageDialog(null, "Complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
-        return;
-        }
-
-        try {
-        if (!txtPrecio.getText().isEmpty()) {
-            precio = Double.parseDouble(txtPrecio.getText()); 
-        }
-        double importe = precio * cantidad;
-
-        // 🛒 **Ticket Cliente** (Incluye precio e importe)
-        if (!categoria.equalsIgnoreCase("Cocina")) {  
-            String pedidoCliente = String.format("%-3d %-20s %10.2f %10.2f", cantidad, plato, precio, importe);
-            pedidos.add(pedidoCliente);
-            total += importe;
-        }
-
-        // 👨‍🍳 **Ticket Cocina** (Cantidad - Menú - Detalles)
-        String pedidoCocina = String.format("%-3d %-20s %-20s", cantidad, plato, detalles);
-        pedidosCocina.add(pedidoCocina);
-
-        // Limpiar campos
-        cboxPlatos.setSelectedIndex(-1);
-        txtPrecio.setText("");
-        txtDetalles.setText("");  // Limpiar detalles también
-
-        } catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(null, "Valores numéricos incorrectos.", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_btnAgregarActionPerformed
-   
+    }   
     ////////////////////////////////////   METODO GENERAR TICKET-COCINA  ///////////////////////////////////////////////////////
     
     private String generarTicketCocina() {
@@ -456,7 +380,7 @@ public class Interfaz_mesa_2 extends javax.swing.JFrame {
         String reset = "\u001B!\u0000";
     
         String ticket = 
-        dobleTamano + "      " + numeroMesa+ reset + "\n\n" +  // Agrandar nombre hay 18 bits en cada espacio 
+        dobleTamano + "        " + numeroMesa+ reset + "\n\n" +  // Agrandar nombre hay 18 bits en cada espacio 
                           sdf.format(new Date()) + "\n" +
             "================================================\n" +
             "CANT.    MENU             DETALLES\n" +
@@ -469,82 +393,170 @@ public class Interfaz_mesa_2 extends javax.swing.JFrame {
             return ticket;
     }
     
-  /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    private void btnTicketCocinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTicketCocinaActionPerformed
-         String ticketTexto = generarTicketCocina();
+    private void btnTicketCli1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTicketCli1ActionPerformed
+        String url = "jdbc:mysql://localhost:3306/mi_base_de_datos";
+        String user = "root";
+        String password = "root";
+        String sql = "INSERT INTO ventas (numMesa, fecha, hora, total) VALUES (?, ?, ?, ?)";
 
-    try {
-        // Código ESC/POS para corte total de papel
-        byte[] cortarPapel = new byte[]{ 0x1D, 0x56, 0x41, 0x10 };
+        try (Connection conn = DriverManager.getConnection(url, user, password);
+            PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-        // Convertir ticket a bytes
-        byte[] ticketBytes = ticketTexto.getBytes("UTF-8");
+            stmt.setInt(1, numMesa);
+            stmt.setDate(2, java.sql.Date.valueOf(LocalDate.now()));
+            stmt.setTime(3, java.sql.Time.valueOf(LocalTime.now()));
+            stmt.setDouble(4, total);
 
-        // Combinar los bytes del ticket con los del comando de corte
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        outputStream.write(ticketBytes);
-        outputStream.write(cortarPapel);
-        byte[] bytesFinales = outputStream.toByteArray();
+            stmt.executeUpdate();
+            System.out.println("Venta registrada exitosamente.");
 
-        // Especificamos el tipo de dato a imprimir (bytes, autodetectado)
-        DocFlavor flavor = DocFlavor.BYTE_ARRAY.AUTOSENSE;
-
-        // Buscar la impresora "80mm Series Printer"
-        PrintService[] printServices = PrintServiceLookup.lookupPrintServices(flavor, null);
-        PrintService selectedService = null;
-
-        for (PrintService service : printServices) {
-            if (service.getName().equalsIgnoreCase("80mm Series Printer")) {
-                selectedService = service;
-                break;
-            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
 
-        // Si no se encuentra la impresora, mostrar error
-        if (selectedService == null) {
-            JOptionPane.showMessageDialog(null, "No se encontró la impresora 80mm Series Printer.", "Error", JOptionPane.ERROR_MESSAGE);
+        String ticketTexto = generarTicket();
+
+        try {
+            // Código ESC/POS para corte total de papel
+            byte[] cortarPapel = new byte[]{ 0x1D, 0x56, 0x41, 0x10 };
+
+            // Convertir ticket a bytes
+            byte[] ticketBytes = ticketTexto.getBytes("UTF-8");
+
+            // Combinar los bytes del ticket con los del comando de corte
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            outputStream.write(ticketBytes);
+            outputStream.write(cortarPapel);
+            byte[] bytesFinales = outputStream.toByteArray();
+
+            // Especificamos el tipo de dato a imprimir (bytes, autodetectado)
+            DocFlavor flavor = DocFlavor.BYTE_ARRAY.AUTOSENSE;
+
+            // Buscar la impresora "80mm Series Printer"
+            PrintService[] printServices = PrintServiceLookup.lookupPrintServices(flavor, null);
+            PrintService selectedService = null;
+
+            for (PrintService service : printServices) {
+                if (service.getName().equalsIgnoreCase("80mm Series Printer")) {
+                    selectedService = service;
+                    break;
+                }
+            }
+
+            // Si no se encuentra la impresora, mostrar error
+            if (selectedService == null) {
+                JOptionPane.showMessageDialog(null, "No se encontró la impresora 80mm Series Printer.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Crear documento a imprimir
+            DocPrintJob job = selectedService.createPrintJob();
+            Doc doc = new SimpleDoc(bytesFinales, flavor, null);
+
+            // Intentar imprimir
+            job.print(doc, null);
+
+            // Limpiar la lista de pedidos y total después de la impresión
+            pedidos.clear();
+            total = 0.0;
+
+            JOptionPane.showMessageDialog(null, "Impresión realizada con éxito.", "Información", JOptionPane.INFORMATION_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al imprimir: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+    }//GEN-LAST:event_btnTicketCli1ActionPerformed
+
+    private void btnTicketCocinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTicketCocinaActionPerformed
+        String ticketTexto = generarTicketCocina();
+
+        try {
+            // Código ESC/POS para corte total de papel
+            byte[] cortarPapel = new byte[]{ 0x1D, 0x56, 0x41, 0x10 };
+
+            // Convertir ticket a bytes
+            byte[] ticketBytes = ticketTexto.getBytes("UTF-8");
+
+            // Combinar los bytes del ticket con los del comando de corte
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            outputStream.write(ticketBytes);
+            outputStream.write(cortarPapel);
+            byte[] bytesFinales = outputStream.toByteArray();
+
+            // Especificamos el tipo de dato a imprimir (bytes, autodetectado)
+            DocFlavor flavor = DocFlavor.BYTE_ARRAY.AUTOSENSE;
+
+            // Buscar la impresora "80mm Series Printer"
+            PrintService[] printServices = PrintServiceLookup.lookupPrintServices(flavor, null);
+            PrintService selectedService = null;
+
+            for (PrintService service : printServices) {
+                if (service.getName().equalsIgnoreCase("80mm Series Printer")) {
+                    selectedService = service;
+                    break;
+                }
+            }
+
+            // Si no se encuentra la impresora, mostrar error
+            if (selectedService == null) {
+                JOptionPane.showMessageDialog(null, "No se encontró la impresora 80mm Series Printer.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Crear documento a imprimir
+            DocPrintJob job = selectedService.createPrintJob();
+            Doc doc = new SimpleDoc(bytesFinales, flavor, null);
+
+            // Intentar imprimir
+            job.print(doc, null);
+
+            // Limpiar la lista de pedidos y total después de la impresión
+            pedidosCocina.clear();
+
+            JOptionPane.showMessageDialog(null, "Impresión realizada con éxito.", "Información", JOptionPane.INFORMATION_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al imprimir: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnTicketCocinaActionPerformed
+
+    private void btnAgregar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregar1ActionPerformed
+        String plato = cboxPlatos.getSelectedItem().toString();
+        String categoria = cboxCategorias.getSelectedItem().toString(); // Categoría para diferenciar
+        double precio = 0.0;
+        int cantidad = (int) spCantidad.getValue();
+        String detalles = txtDetalles.getText().trim(); // Nuevo campo para detalles
+
+        if (plato.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        // Crear documento a imprimir
-        DocPrintJob job = selectedService.createPrintJob();
-        Doc doc = new SimpleDoc(bytesFinales, flavor, null);
-
-        // Intentar imprimir
-        job.print(doc, null);
-
-        // Limpiar la lista de pedidos y total después de la impresión
-        pedidosCocina.clear();
-    
-
-        JOptionPane.showMessageDialog(null, "Impresión realizada con éxito.", "Información", JOptionPane.INFORMATION_MESSAGE);
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(null, "Error al imprimir: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-    }  
-    }//GEN-LAST:event_btnTicketCocinaActionPerformed
-
-    private void btnDescuentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDescuentoActionPerformed
         try {
-        // Mostrar un cuadro de diálogo para ingresar el descuento
-        String input = JOptionPane.showInputDialog(this, "Ingrese el porcentaje de descuento:", "Aplicar Descuento", JOptionPane.QUESTION_MESSAGE);
-        
-        // Verificar si el usuario ingresó un valor válido
-        if (input != null && !input.trim().isEmpty()) {
-            double descuento = Double.parseDouble(input); // Convertir a número
+            if (!txtPrecio.getText().isEmpty()) {
+                precio = Double.parseDouble(txtPrecio.getText());
+            }
+            double importe = precio * cantidad;
 
-            // Obtener el precio actual
-            double precioActual = Double.parseDouble(txtPrecio.getText());
+            // 🛒 **Ticket Cliente** (Incluye precio e importe)
+            if (!categoria.equalsIgnoreCase("Cocina")) {
+                String pedidoCliente = String.format("%-3d %-20s %10.2f %10.2f", cantidad, plato, precio, importe);
+                pedidos.add(pedidoCliente);
+                total += importe;
+            }
 
-            // Calcular el nuevo precio con el descuento aplicado
-            double nuevoPrecio = precioActual - (precioActual * (descuento / 100));
+            // 👨‍🍳 **Ticket Cocina** (Cantidad - Menú - Detalles)
+            String pedidoCocina = String.format("%-3d %-20s %-20s", cantidad, plato, detalles);
+            pedidosCocina.add(pedidoCocina);
 
-            // Establecer el nuevo precio en el campo txtPrecio
-            txtPrecio.setText(String.format("%.2f", nuevoPrecio));
+            // Limpiar campos
+            cboxPlatos.setSelectedIndex(-1);
+            txtPrecio.setText("");
+            txtDetalles.setText("");  // Limpiar detalles también
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Valores numéricos incorrectos.", "Error", JOptionPane.ERROR_MESSAGE);
         }
-    } catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(this, "Ingrese un valor numérico válido.", "Error", JOptionPane.ERROR_MESSAGE);
-    }
-    }//GEN-LAST:event_btnDescuentoActionPerformed
+    }//GEN-LAST:event_btnAgregar1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -582,16 +594,18 @@ public class Interfaz_mesa_2 extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAgregar;
-    private javax.swing.JButton btnDescuento;
-    private javax.swing.JButton btnTicketCli;
+    private javax.swing.JButton btnAgregar1;
+    private javax.swing.JButton btnTicketCli1;
     private javax.swing.JButton btnTicketCocina;
     private javax.swing.JComboBox<String> cboxCategorias;
     private javax.swing.JComboBox<String> cboxPlatos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;

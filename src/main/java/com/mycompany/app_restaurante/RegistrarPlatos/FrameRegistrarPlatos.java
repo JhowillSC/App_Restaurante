@@ -71,7 +71,7 @@ public class FrameRegistrarPlatos extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaLista = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setIconImage(getIconImage());
 
         jPanel1.setBackground(new java.awt.Color(153, 153, 153));
