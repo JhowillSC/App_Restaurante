@@ -343,6 +343,13 @@ private void aplicarLimpieza() {
             e.printStackTrace();
         }
         
+        cboxCategorias.setSelectedIndex(0);
+    cboxPlatos.setSelectedIndex(0);
+    spCantidad.setValue(0);
+    txtPrecio.setText("");
+    txtA.setText("");
+    txtDetalles.setText("");
+        
         String ticketTexto = generarTicket();
 
     try {
