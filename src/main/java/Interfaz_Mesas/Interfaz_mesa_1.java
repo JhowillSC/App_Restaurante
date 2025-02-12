@@ -496,7 +496,7 @@ private void aplicarLimpieza() {
         PrintService selectedService = null;
 
         for (PrintService service : printServices) {
-            if (service.getName().equalsIgnoreCase("80mm Series Printer")) {
+            if (service.getName().equalsIgnoreCase("Ticket_Cliente")) {
                 selectedService = service;
                 break;
             }
@@ -590,9 +590,9 @@ private void aplicarLimpieza() {
         // Buscar la impresora "80mm Series Printer"
         PrintService[] printServices = PrintServiceLookup.lookupPrintServices(flavor, null);
         PrintService selectedService = null;
-
+            
         for (PrintService service : printServices) {
-            if (service.getName().equalsIgnoreCase("80mm Series Printer")) {
+            if (service.getName().equalsIgnoreCase("Ticket_Cocina")) {
                 selectedService = service;
                 break;
             }

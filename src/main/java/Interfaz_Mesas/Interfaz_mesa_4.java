@@ -34,7 +34,7 @@ public class Interfaz_mesa_4 extends javax.swing.JFrame {
     private ArrayList<String> pedidos = new ArrayList<>();
     private ArrayList<String> pedidosCocina = new ArrayList<>();
     private double total = 0.0;
-    private int numMesa=1;
+    private int numMesa=4;
     private ArrayList<Integer> indicesPedidos = new ArrayList<>(); 
     private boolean cabeceraAgregada = false;
     // Declarar una lista para los importes
@@ -203,7 +203,6 @@ private void aplicarLimpieza() {
         });
         getContentPane().add(cboxCategorias, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 120, 230, 40));
 
-        cboxPlatos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "BEBIDAS", "HAMBURGESAS ", "BURRITOS", " " }));
         cboxPlatos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cboxPlatosActionPerformed(evt);
@@ -373,7 +372,7 @@ private void aplicarLimpieza() {
         PrintService selectedService = null;
 
         for (PrintService service : printServices) {
-            if (service.getName().equalsIgnoreCase("80mm Series Printer")) {
+            if (service.getName().equalsIgnoreCase("Ticket_Cliente")) {
                 selectedService = service;
                 break;
             }
@@ -441,7 +440,7 @@ private void aplicarLimpieza() {
         PrintService selectedService = null;
 
         for (PrintService service : printServices) {
-            if (service.getName().equalsIgnoreCase("80mm Series Printer")) {
+            if (service.getName().equalsIgnoreCase("Ticket_Cocina")) {
                 selectedService = service;
                 break;
             }
