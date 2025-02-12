@@ -114,46 +114,50 @@ public class Interfaz_mesa_1 extends javax.swing.JFrame {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
        ////////////////////////////////////////// ELIMINAR PLATOS - LOGICA /////////////////////////////////////////////////////////////////
-   private void aplicarLimpieza() {
-        String input = JOptionPane.showInputDialog("Ingrese el número del pedido a eliminar:");
-        
-        if (input != null) {
-            try {
-                int idEliminar = Integer.parseInt(input);
-                int index = indicesPedidos.indexOf(idEliminar);
-                
-                if (index != -1) {
-                    // Restar el importe eliminado del total
-                    total -= importesPedidos.get(index);
-                    
-                    // Eliminar de todas las listas
-                    pedidos.remove(index);
-                    pedidosCocina.remove(index);
-                    indicesPedidos.remove(index);
-                    importesPedidos.remove(index);
-                    
-                    // Actualizar txtA
-                    txtA.setText("");
-                    cabeceraAgregada = false;
-                    
-                    // Volver a mostrar los pedidos sin el eliminado
-                    if (!pedidos.isEmpty()) {
-                        txtA.append(String.format("%-5s | %-3s | %-15s | %-6s | %s%n", "ID", "CANT", "CONCEPTO", "PRECIO", "DETALLE"));
-                        cabeceraAgregada = true;
-                    }
-                    for (int i = 0; i < pedidos.size(); i++) {
-                        txtA.append(pedidos.get(i) + "\n");
-                    }
-                    
-                    JOptionPane.showMessageDialog(null, "El Plato/Bebida se ha eliminado correctamente");
-                } else {
-                    JOptionPane.showMessageDialog(null, "No se encontró el número de pedido.", "Error", JOptionPane.ERROR_MESSAGE);
+private void aplicarLimpieza() { 
+    String input = JOptionPane.showInputDialog("Ingrese el número del pedido a eliminar:");
+
+    if (input != null) {
+        try {
+            int idEliminar = Integer.parseInt(input);
+
+            // Buscar el índice del ID en la lista de índices
+            int index = indicesPedidos.indexOf(idEliminar);
+
+            if (index != -1) {
+                // Restar el importe eliminado del total
+                total -= importesPedidos.get(index);
+
+                // Eliminar el ID, pero sin alterar los demás
+                indicesPedidos.remove(index);
+                pedidos.remove(index);
+                pedidosCocina.remove(index);
+                importesPedidos.remove(index);
+
+                // Actualizar txtA
+                txtA.setText("");
+                cabeceraAgregada = false;
+
+                // Volver a mostrar los pedidos sin el eliminado
+                if (!pedidos.isEmpty()) {
+                    txtA.append(String.format("%-5s | %-3s | %-15s | %-6s | %s%n", "ID", "CANT", "CONCEPTO", "PRECIO", "DETALLE"));
+                    cabeceraAgregada = true;
                 }
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "Ingrese un número válido.", "Error", JOptionPane.ERROR_MESSAGE);
+
+                for (int i = 0; i < pedidos.size(); i++) {
+                    txtA.append(String.format("%-5d | %s%n", indicesPedidos.get(i), pedidos.get(i)));
+                }
+
+                JOptionPane.showMessageDialog(null, "El Plato/Bebida se ha eliminado correctamente");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró el número de pedido.", "Error", JOptionPane.ERROR_MESSAGE);
             }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Ingrese un número válido.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
+}
+
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
@@ -610,7 +614,7 @@ public class Interfaz_mesa_1 extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnTicketCocinaActionPerformed
     private int contadorPedidos = 1; // Para numerar los pedidos
-    
+   
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
     String plato = cboxPlatos.getSelectedItem().toString();
     String categoria = cboxCategorias.getSelectedItem().toString();
