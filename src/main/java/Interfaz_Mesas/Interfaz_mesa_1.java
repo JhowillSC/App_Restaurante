@@ -35,7 +35,13 @@ public class Interfaz_mesa_1 extends javax.swing.JFrame {
     private ArrayList<String> pedidos = new ArrayList<>();
     private ArrayList<String> pedidosCocina = new ArrayList<>();
     private double total = 0.0;
-    private int numMesa=1; 
+    private int numMesa=1;
+    private ArrayList<Integer> indicesPedidos = new ArrayList<>(); 
+    private boolean cabeceraAgregada = false;
+    // Declarar una lista para los importes
+    private ArrayList<Double> importesPedidos = new ArrayList<>();
+    private ArrayList<String> pedidosImpresos = new ArrayList<>();
+    
     String nombreRestaurante = "TRES COPAS";
    
    
@@ -55,6 +61,17 @@ public class Interfaz_mesa_1 extends javax.swing.JFrame {
         }
         });
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        
+        
+        //////////////////////// ELIMINAR PLATOS ///////////////////////////////////////////////////////////////////////////
+        jLabel12.addMouseListener(new java.awt.event.MouseAdapter() {
+        @Override
+        public void mouseClicked(java.awt.event.MouseEvent evt) {
+        aplicarLimpieza();
+        }
+        });
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        
         // Llenar ComboBox al iniciar la interfaz
         llenarCategorias();
         // Agregar eventos para actualizar platos y precio
@@ -71,7 +88,7 @@ public class Interfaz_mesa_1 extends javax.swing.JFrame {
         return retValue;
     }
     
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////APLICAR DESCUENTO/////////////////////////////////////////////////////////////////
     private void aplicarDescuento() {
     try {
         // Mostrar un cuadro de diálogo para ingresar el descuento
@@ -94,6 +111,51 @@ public class Interfaz_mesa_1 extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "Ingrese un valor numérico válido.", "Error", JOptionPane.ERROR_MESSAGE);
     }
 }
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+       ////////////////////////////////////////// ELIMINAR PLATOS - LOGICA /////////////////////////////////////////////////////////////////
+   private void aplicarLimpieza() {
+        String input = JOptionPane.showInputDialog("Ingrese el número del pedido a eliminar:");
+        
+        if (input != null) {
+            try {
+                int idEliminar = Integer.parseInt(input);
+                int index = indicesPedidos.indexOf(idEliminar);
+                
+                if (index != -1) {
+                    // Restar el importe eliminado del total
+                    total -= importesPedidos.get(index);
+                    
+                    // Eliminar de todas las listas
+                    pedidos.remove(index);
+                    pedidosCocina.remove(index);
+                    indicesPedidos.remove(index);
+                    importesPedidos.remove(index);
+                    
+                    // Actualizar txtA
+                    txtA.setText("");
+                    cabeceraAgregada = false;
+                    
+                    // Volver a mostrar los pedidos sin el eliminado
+                    if (!pedidos.isEmpty()) {
+                        txtA.append(String.format("%-5s | %-3s | %-15s | %-6s | %s%n", "ID", "CANT", "CONCEPTO", "PRECIO", "DETALLE"));
+                        cabeceraAgregada = true;
+                    }
+                    for (int i = 0; i < pedidos.size(); i++) {
+                        txtA.append(pedidos.get(i) + "\n");
+                    }
+                    
+                    JOptionPane.showMessageDialog(null, "El Plato/Bebida se ha eliminado correctamente");
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se encontró el número de pedido.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Ingrese un número válido.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     
     
@@ -210,7 +272,7 @@ public class Interfaz_mesa_1 extends javax.swing.JFrame {
         txtA.setRows(5);
         jScrollPane1.setViewportView(txtA);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 170, 260, 250));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 170, 290, 250));
 
         spCantidad.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         getContentPane().add(spCantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 280, 60, 40));
@@ -444,6 +506,8 @@ public class Interfaz_mesa_1 extends javax.swing.JFrame {
 
         // Limpiar la lista de pedidos y total después de la impresión
         pedidos.clear();
+        txtA.setText(" ");  
+        cabeceraAgregada = false;
         total = 0.0;
 
         JOptionPane.showMessageDialog(null, "Impresión realizada con éxito.", "Información", JOptionPane.INFORMATION_MESSAGE);
@@ -457,32 +521,46 @@ public class Interfaz_mesa_1 extends javax.swing.JFrame {
     
     ////////////////////////////////////   METODO GENERAR TICKET-COCINA  ///////////////////////////////////////////////////////
     
-    private String generarTicketCocina() {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-        String numeroMesa="MESA 1";
-        String dobleTamano = "\u001B!\u0030";  // ESC ! 0x10 -> Fuente más grande (doble altura)
-        String reset = "\u001B!\u0000";
-    
-        String ticket = 
-        dobleTamano + "        " + numeroMesa+ reset + "\n\n" +  // Agrandar nombre hay 18 bits en cada espacio 
-                          sdf.format(new Date()) + "\n" +
-            "================================================\n" +
-            "CANT.    MENU             DETALLES\n" +
-            "------------------------------------------------\n";
-        
-            // Agregar cada pedido 
-            for (String pedido : pedidosCocina) {
-            ticket += pedido + "\n";
-        }
-            return ticket;
+   private String generarTicketCocina(ArrayList<String> pedidos) {
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+    String numeroMesa = "MESA 1";
+    String dobleTamano = "\u001B!\u0030";  // ESC ! 0x30 -> Fuente más grande (doble altura)
+    String reset = "\u001B!\u0000";
+
+    String ticket =
+        dobleTamano + "        " + numeroMesa + reset + "\n\n" +  // Agrandar nombre hay 18 bits en cada espacio 
+        sdf.format(new Date()) + "\n" +
+        "================================================\n" +
+        "CANT.    MENU             DETALLES\n" +
+        "------------------------------------------------\n";
+
+    // Agregar cada pedido de la lista recibida
+    for (String pedido : pedidos) {
+        ticket += pedido + "\n";
     }
+
+    return ticket;
+}
+
     
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     private void btnTicketCocinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTicketCocinaActionPerformed
-     String ticketTexto = generarTicketCocina();
+     
+        try {
+        // Identificar los nuevos pedidos que aún no se han impreso
+        ArrayList<String> nuevosPedidos = new ArrayList<>(pedidosCocina);
+        nuevosPedidos.removeAll(pedidosImpresos); // Quitar los ya impresos
 
-    try {
+        // Si no hay nuevos pedidos, no imprimir nada
+        if (nuevosPedidos.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "No hay nuevos pedidos para imprimir.", "Información", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+
+        // Generar ticket solo con los nuevos pedidos
+        String ticketTexto = generarTicketCocina(nuevosPedidos);
+        
         // Código ESC/POS para corte total de papel
         byte[] cortarPapel = new byte[]{ 0x1D, 0x56, 0x41, 0x10 };
 
@@ -522,54 +600,68 @@ public class Interfaz_mesa_1 extends javax.swing.JFrame {
         // Intentar imprimir
         job.print(doc, null);
 
-        // Limpiar la lista de pedidos y total después de la impresión
-        pedidosCocina.clear();
-    
+        // Agregar los pedidos impresos a la lista de control
+        pedidosImpresos.addAll(nuevosPedidos);
 
         JOptionPane.showMessageDialog(null, "Impresión realizada con éxito.", "Información", JOptionPane.INFORMATION_MESSAGE);
     } catch (Exception e) {
         JOptionPane.showMessageDialog(null, "Error al imprimir: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-    }  
+    }
+
     }//GEN-LAST:event_btnTicketCocinaActionPerformed
-
+    private int contadorPedidos = 1; // Para numerar los pedidos
+    
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        String plato = cboxPlatos.getSelectedItem().toString();
-        String categoria = cboxCategorias.getSelectedItem().toString(); // Categoría para diferenciar
-        double precio = 0.0;
-        int cantidad = (int) spCantidad.getValue();
-        String detalles = txtDetalles.getText().trim(); // Nuevo campo para detalles
+    String plato = cboxPlatos.getSelectedItem().toString();
+    String categoria = cboxCategorias.getSelectedItem().toString();
+    double precio = 0.0;
+    int cantidad = (int) spCantidad.getValue();
+    String detalles = txtDetalles.getText().trim();
 
-        if (plato.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
+    if (plato.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    try {
+        if (!txtPrecio.getText().isEmpty()) {
+            precio = Double.parseDouble(txtPrecio.getText());
+        }
+        double importe = precio * cantidad;
+
+        // 🛒 **Ticket Cliente**
+        if (!categoria.equalsIgnoreCase("Cocina")) {
+            String pedidoCliente = String.format("%-3d %-20s %10.2f %10.2f",cantidad, plato, precio, importe);
+            pedidos.add(pedidoCliente);
+            total += importe;
         }
 
-        try {
-            if (!txtPrecio.getText().isEmpty()) {
-                precio = Double.parseDouble(txtPrecio.getText());
-            }
-            double importe = precio * cantidad;
+        // 👨‍🍳 **Ticket Cocina**
+        String pedidoCocina = String.format("%-3d %-20s %-20s",cantidad, plato, detalles);
+        pedidosCocina.add(pedidoCocina);
 
-            // 🛒 **Ticket Cliente** (Incluye precio e importe)
-            if (!categoria.equalsIgnoreCase("Cocina")) {
-                String pedidoCliente = String.format("%-3d %-20s %10.2f %10.2f", cantidad, plato, precio, importe);
-                pedidos.add(pedidoCliente);
-                total += importe;
-            }
+        // Guardar el índice del pedido
+        indicesPedidos.add(contadorPedidos);
+        importesPedidos.add(importe);
+        contadorPedidos++;
 
-            // 👨‍🍳 **Ticket Cocina** (Cantidad - Menú - Detalles)
-            String pedidoCocina = String.format("%-3d %-20s %-20s", cantidad, plato, detalles);
-            pedidosCocina.add(pedidoCocina);
-
-            // Limpiar campos
-            cboxPlatos.setSelectedIndex(-1);
-            txtPrecio.setText("");
-            txtDetalles.setText("");  // Limpiar detalles también
-
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Valores numéricos incorrectos.", "Error", JOptionPane.ERROR_MESSAGE);
+        // Mostrar en txtA
+        txtA.setEditable(false);
+        if (!cabeceraAgregada) {
+            txtA.append(String.format("%-5s | %-3s | %-15s | %-6s | %s%n", "ID", "CANT", "CONCEPTO", "PRECIO", "DETALLE"));
+            cabeceraAgregada = true;
         }
 
+        txtA.append(String.format("%-5d | %-3d | %-15s | %-6.2f | %s%n", contadorPedidos - 1, cantidad, plato, precio, detalles));
+
+        // Limpiar campos
+        cboxPlatos.setSelectedIndex(-1);
+        txtPrecio.setText("");
+        txtDetalles.setText("");  
+
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(null, "Valores numéricos incorrectos.", "Error", JOptionPane.ERROR_MESSAGE);
+    }
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     /**
