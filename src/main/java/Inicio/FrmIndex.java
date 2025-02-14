@@ -82,9 +82,9 @@ public class FrmIndex extends javax.swing.JFrame {
         });
         getContentPane().add(btnMesa, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 280, 215, 114));
 
-        titulo.setFont(new java.awt.Font("Segoe UI Light", 0, 36)); // NOI18N
+        titulo.setFont(new java.awt.Font("Tempus Sans ITC", 1, 36)); // NOI18N
         titulo.setForeground(new java.awt.Color(255, 255, 255));
-        titulo.setText("\"RESTAURANTE BUEN SABOR\"");
+        titulo.setText("RESTAURANTE TRES COPAS");
         titulo.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         titulo.setIconTextGap(15);
         titulo.setVerticalTextPosition(javax.swing.SwingConstants.TOP);

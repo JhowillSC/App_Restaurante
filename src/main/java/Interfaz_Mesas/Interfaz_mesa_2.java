@@ -439,7 +439,7 @@ private void aplicarLimpieza() {
     
    private String generarTicketCocina(ArrayList<String> pedidos) {
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-    String numeroMesa = "MESA 1";
+    String numeroMesa = "MESA 2";
     String dobleTamano = "\u001B!\u0030";  // ESC ! 0x30 -> Fuente más grande (doble altura)
     String reset = "\u001B!\u0000";
 
@@ -483,11 +483,11 @@ private void aplicarLimpieza() {
         }
         
         cboxCategorias.setSelectedIndex(0);
-    cboxPlatos.setSelectedIndex(0);
-    spCantidad.setValue(0);
-    txtPrecio.setText("");
-    txtA.setText("");
-    txtDetalles.setText("");
+        cboxPlatos.setSelectedIndex(0);
+        spCantidad.setValue(0);
+        txtPrecio.setText("");
+        txtA.setText("");
+        txtDetalles.setText("");
         
         String ticketTexto = generarTicket();
 
@@ -520,7 +520,7 @@ private void aplicarLimpieza() {
 
         // Si no se encuentra la impresora, mostrar error
         if (selectedService == null) {
-            JOptionPane.showMessageDialog(null, "No se encontró la impresora 80mm Series Printer.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "No se encontró la impresora .", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -579,7 +579,7 @@ private void aplicarLimpieza() {
         PrintService selectedService = null;
 
         for (PrintService service : printServices) {
-            if (service.getName().equalsIgnoreCase("Ticket_Cocina")) {
+            if (service.getName().equalsIgnoreCase("Ticket_Cliente")) {
                 selectedService = service;
                 break;
             }
@@ -587,7 +587,7 @@ private void aplicarLimpieza() {
 
         // Si no se encuentra la impresora, mostrar error
         if (selectedService == null) {
-            JOptionPane.showMessageDialog(null, "No se encontró la impresora 80mm Series Printer.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "No se encontró la impresora ", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 

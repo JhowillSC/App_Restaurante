@@ -466,11 +466,11 @@ private void aplicarLimpieza() {
             e.printStackTrace();
         }
         cboxCategorias.setSelectedIndex(0);
-    cboxPlatos.setSelectedIndex(0);
-    spCantidad.setValue(0);
-    txtPrecio.setText("");
-    txtA.setText("");
-    txtDetalles.setText("");
+        cboxPlatos.setSelectedIndex(0);
+        spCantidad.setValue(0);
+        txtPrecio.setText("");
+        txtA.setText("");
+        txtDetalles.setText("");
         
         
         String ticketTexto = generarTicket();
@@ -592,7 +592,7 @@ private void aplicarLimpieza() {
         PrintService selectedService = null;
             
         for (PrintService service : printServices) {
-            if (service.getName().equalsIgnoreCase("Ticket_Cocina")) {
+            if (service.getName().equalsIgnoreCase("Ticket_Cliente")) {
                 selectedService = service;
                 break;
             }
@@ -600,7 +600,7 @@ private void aplicarLimpieza() {
 
         // Si no se encuentra la impresora, mostrar error
         if (selectedService == null) {
-            JOptionPane.showMessageDialog(null, "No se encontró la impresora 80mm Series Printer.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "No se encontró la impresora .", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
